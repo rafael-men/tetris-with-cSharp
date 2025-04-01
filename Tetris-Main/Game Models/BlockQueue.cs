@@ -23,5 +23,28 @@ namespace Tetris_Main.Game_Models
         private readonly Random random = new Random();
 
         public Block NextBlock { get; private set; }
+
+        public BlockQueue()
+        {
+            NextBlock = RandomBlock();
+        }
+
+        private Block RandomBlock()
+        {
+            return blocks[random.Next(blocks.Length)];
+        }
+
+        public Block GetAndUpdate()
+        {
+            Block block = NextBlock;
+
+            do
+            {
+                NextBlock = RandomBlock();
+            }
+            while(block.Id == NextBlock.Id);
+
+            return block;
+        }
     }
 }
